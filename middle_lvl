@@ -1,0 +1,128 @@
+// laba2_middle_lvl.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+struct Date
+{
+	int day;
+	int month;
+	int year;
+};
+
+struct Auto
+{
+	string markAuto;
+	string creator;
+	string type;
+	int year;
+	Date registration;
+	void ReadInfo();
+	void WriteInfo();
+};
+
+void Auto::ReadInfo()
+{
+
+    cout << "Введите название марки авто: ";
+    cin.ignore(cin.rdbuf()->in_avail());
+    getline(cin, markAuto);
+    cout << "Введите производителя: ";
+    cin.ignore(cin.rdbuf()->in_avail());
+    getline(cin, creator);
+    cout << "Введите тип авто: ";
+    cin.ignore(cin.rdbuf()->in_avail());
+    getline(cin, type);
+    cout << "Введите название производителя: ";
+    cin.ignore(cin.rdbuf()->in_avail());
+    getline(cin, creator);
+    cout << "Введите год выпуска: ";
+    do
+    {   
+        cin >> year;
+        if (year > 2021 || year < 0)
+        {
+            cout << "Ошибка ввода ! ";
+            cout << "Повторите попытку: ";
+        }
+        else
+            break;
+    } while (true);
+    cout << "Введите дату регистрации: "; // добавить проверку на дату
+    cin >> registration.day >> registration.month;
+    do
+    {
+        
+        cin >> registration.year;
+        if (year > registration.year)
+        {
+            cout << "Авто не может быть зарегистрировано до его выпуска ! ";
+            cout << "Повторите попытку: ";
+        }
+        else
+            break;
+    } while (true);
+       
+}
+
+void Auto::WriteInfo()
+{
+    cout << "Марка авто: " << markAuto << endl;
+    cout << "Производитель: " << creator << endl;
+    cout << "Тип: " << type << endl;
+    cout << "Год выпуска : " << year << endl;
+    cout << "Дата регистрации: " << registration.day << " " << registration.month << " " << registration.year << endl;
+}
+
+int main()
+{
+    setlocale(0, "ru");
+    int n = 0;
+    cout << "Введите количество авто: ";
+    cin >> n;
+    cout << endl;
+    Auto* item = new Auto[n];
+    for (size_t i = 0; i < n; i++)
+    {
+        item[i].ReadInfo();
+        cout << endl;
+    }
+    cout << "Ваши записи:" << endl;
+    for (size_t i = 0; i < n; i++)
+    {
+        item[i].WriteInfo();
+        cout << endl;
+    }
+    getchar();
+    cout << "Нажмите Enter для продолжения:";
+    getchar();
+    system("cls");
+    int count = 0;
+    cout << "Все машины марки Toyota:"<<endl;
+    for (size_t i = 0; i < n; i++)
+    {
+        
+        int temp = item[i].markAuto.length();
+        char* t = new char[temp];
+        for (size_t i = 0; i < temp; i++)
+            item[count].markAuto[i] = tolower(item[count].markAuto[i]);
+
+        if ( (item[count].markAuto == "toyota") && (item[count].registration.year < 2007))
+        {
+            item[count].markAuto[0] = toupper(item[count].markAuto[0]);
+            item[i].WriteInfo();
+            cout << endl;
+        }
+
+        count++;
+    }
+   
+
+
+}
+
+
+
