@@ -1,0 +1,81 @@
+// labaNumber_1.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct Date
+{
+    int day;
+    int month;
+    int year;
+};
+
+struct Product
+{
+    string name;
+    int count;
+    int price;
+    string creator;
+    Date receiptDate;
+    void ReadInfo();
+    void WriteInfo();
+};
+
+void Product::ReadInfo()
+{
+    cout << "Введите название продукта: ";
+    cin.ignore(cin.rdbuf()->in_avail());
+    getline(cin, name);
+    cout << "Введите количество товара: ";
+    cin >> count;
+    cout << "Цена товара: ";
+    cin >> price;
+    cout << "Введите название производителя: ";
+    cin.ignore(cin.rdbuf()->in_avail());
+    getline(cin , creator);
+    cout << "Введите дату поступления на склад товара: ";
+    cin >> receiptDate.day >> receiptDate.month >> receiptDate.year;
+}
+
+void Product::WriteInfo()
+{
+    cout << "Название товара: " << name << endl;
+    cout << "Количество: " << count << endl;
+    cout << "Цена: " << price << endl;
+    cout << "Производитель: " << creator << endl;
+    cout << "Дата поступления на склад: " << receiptDate.day << " " << receiptDate.month << " " << receiptDate.year << endl;
+}
+
+int main()
+{
+    setlocale(0 , "ru");
+    const int N = 3;
+    Product item[N];
+    cout << "Введите данные о товарах на складе"<<endl;
+    for (size_t i = 0; i < N; i++)
+    {
+        item[i].ReadInfo();
+        cout << endl;
+    }
+    cout << "Ваши записи:"<<endl;
+    for (size_t i = 0; i < N; i++)
+    {
+        item[i].WriteInfo();
+        cout << endl;
+    }
+    cout << "Записи о продуктах количеств которых больше 5:" << endl;
+    for (size_t i = 0; i < N; i++)
+    {
+        if (item[i].count > 5)
+        {
+            item[i].WriteInfo();
+            cout << endl;
+        }
+    }
+
+
+}
+
+
